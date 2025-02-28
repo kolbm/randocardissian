@@ -25,10 +25,17 @@ def randomize_selection():
                 random_item = random.choice(items)
                 st.session_state.randomization_history.append(random_item)
             
-            # Display the randomization history
+            # Display the randomization history (latest first, in bold for the most recent)
             st.markdown("### Randomization History:")
-            for idx, item in enumerate(st.session_state.randomization_history, 1):
-                st.markdown(f"{idx}. {item}")
+            # Display the latest randomization in large and bold
+            if st.session_state.randomization_history:
+                latest_item = st.session_state.randomization_history[-1]
+                st.markdown(f"#### **Latest Randomization:**")
+                st.markdown(f"##### **{latest_item}**")
+                
+                # Display the previous randomizations in reverse order
+                for idx, item in enumerate(reversed(st.session_state.randomization_history[:-1]), 1):
+                    st.markdown(f"{len(st.session_state.randomization_history) - idx}. {item}")
             
         else:
             st.write("The file is empty!")
