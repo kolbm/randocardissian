@@ -16,18 +16,20 @@ def randomize_selection():
         items = text.splitlines()
         
         if items:
-            # Session state to store the selected item
-            if 'random_item' not in st.session_state:
-                st.session_state.random_item = random.choice(items)
+            # Initialize session state to store the list of randomizations
+            if 'randomization_history' not in st.session_state:
+                st.session_state.randomization_history = []
             
-            # Display the randomly selected item in a large, bold format
-            st.markdown(f"### **Randomly Selected Item:**")
-            st.markdown(f"#### **{st.session_state.random_item}**")
+            # Randomly select an item and add it to the history
+            if st.button("Randomize"):
+                random_item = random.choice(items)
+                st.session_state.randomization_history.append(random_item)
             
-            # Button to randomize again
-            if st.button("Randomize Again"):
-                st.session_state.random_item = random.choice(items)
-                st.markdown(f"#### **{st.session_state.random_item}**")
+            # Display the randomization history
+            st.markdown("### Randomization History:")
+            for idx, item in enumerate(st.session_state.randomization_history, 1):
+                st.markdown(f"{idx}. {item}")
+            
         else:
             st.write("The file is empty!")
     else:
