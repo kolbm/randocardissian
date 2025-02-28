@@ -16,11 +16,17 @@ def randomize_selection():
         items = text.splitlines()
         
         if items:
-            # Randomly select an item from the list
-            random_item = random.choice(items)
+            # Session state to store the selected item
+            if 'random_item' not in st.session_state:
+                st.session_state.random_item = random.choice(items)
             
             # Display the randomly selected item
-            st.write(f"Randomly selected item: {random_item}")
+            st.write(f"Randomly selected item: {st.session_state.random_item}")
+            
+            # Button to randomize again
+            if st.button("Randomize Again"):
+                st.session_state.random_item = random.choice(items)
+                st.write(f"Randomly selected item: {st.session_state.random_item}")
         else:
             st.write("The file is empty!")
     else:
@@ -28,4 +34,3 @@ def randomize_selection():
 
 if __name__ == "__main__":
     randomize_selection()
-
