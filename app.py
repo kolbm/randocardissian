@@ -20,13 +20,14 @@ def randomize_selection():
             if 'random_item' not in st.session_state:
                 st.session_state.random_item = random.choice(items)
             
-            # Display the randomly selected item
-            st.write(f"Randomly selected item: {st.session_state.random_item}")
+            # Display the randomly selected item in a large, bold format
+            st.markdown(f"### **Randomly Selected Item:**")
+            st.markdown(f"#### **{st.session_state.random_item}**")
             
             # Button to randomize again
             if st.button("Randomize Again"):
                 st.session_state.random_item = random.choice(items)
-                st.write(f"Randomly selected item: {st.session_state.random_item}")
+                st.markdown(f"#### **{st.session_state.random_item}**")
         else:
             st.write("The file is empty!")
     else:
